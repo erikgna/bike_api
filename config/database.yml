@@ -3,18 +3,18 @@ default: &default
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   host: localhost
-  port: 5432
-  username: bike
-  password: admin
+  port: 32768
+  username: postgres
+  password: postgrespw
   timeout: 5000
 
 development:
   <<: *default
-  database: bikes
+  database: postgres
 test:
   <<: *default
-  database: bikes
+  database: postgres
 
 production:
   <<: *default
-  database: bikes
+  database: postgres

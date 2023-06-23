@@ -8,3 +8,16 @@
         password: Faker::Internet.password
 	})
 end
+
+User.all.each do |user|
+	rand(1..5).times do
+	  Payment.create({
+		user: user,
+		holder_name: Faker::Name.name,
+		card_number: Faker::Finance.credit_card,
+		expiration_date: Faker::Business.credit_card_expiry_date,
+		ccv: Faker::Number.number(digits: 3)
+	  })
+	end
+  end
+  
