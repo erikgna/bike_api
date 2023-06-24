@@ -10,29 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_23_004620) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_23_214614) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "payments", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "holder_name"
-    t.string "card_number"
-    t.string "expiration_date"
-    t.string "ccv"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_payments_on_user_id"
-  end
-
-  create_table "users", force: :cascade do |t|
-    t.string "email"
-    t.string "password"
-    t.string "name"
-    t.string "token"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_foreign_key "payments", "users"
 end

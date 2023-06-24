@@ -1,6 +1,8 @@
 module Api
     module V1
         class UsersController < ApplicationController
+            before_action :authorize_request, except: :create
+
             def index
                 users = User.order('created_at DESC');                
                 render json: {status: 'SUCCESS', message: 'Loaded users', data: users}, status: :ok
@@ -12,7 +14,14 @@ module Api
             end
 
             def create
-                user = User.new(user_params)
+                user = User.new(user_params)                
+                if user.password == params[:password_confirmation]
+                    user.password = BCrypt::Password.create(params[:password])
+                else
+                    render json: {status: 'ERROR', message: 'Passwords doesnt match'}, status: :unprocessable_entity
+                    return
+                end
+                                
                 if user.save
                     render json: {status: 'SUCCESS', message: 'Saved user', data: user}, status: :ok
                 else
@@ -36,7 +45,7 @@ module Api
             end
 
             private def user_params
-                params.permit(:name, :email, :password)
+                params.permit(:name, :email, :password, :password_confirmation)
             end
         end
     end
