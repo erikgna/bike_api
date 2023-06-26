@@ -1,6 +1,8 @@
 module Api
     module V1
         class PaymentsController < ApplicationController
+            before_action :authorize_request
+            
             def index
                 payments = Payment.order('created_at DESC');                
                 render json: {status: 'SUCCESS', message: 'Loaded payments', data: payments}, status: :ok
@@ -12,7 +14,9 @@ module Api
             end
 
             def create
+                user_id = extract_user_id_from_token
                 payment = Payment.new(payment_params)
+                payment.user_id = user_id
                 if payment.save
                     render json: {status: 'SUCCESS', message: 'Saved payment', data: payment}, status: :ok
                 else
@@ -36,13 +40,19 @@ module Api
             end
 
             def user_payments
-                user = User.find(params[:user_id])
+                user_id = extract_user_id_from_token                
+                user = User.find(user_id)
                 payments = user.payments
                 render json: { status: 'SUCCESS', message: 'User payments loaded', data: payments }, status: :ok
             end        
 
             private def payment_params
                 params.permit(:card_number, :holder_name, :ccv, :expiration_date)
+            end
+
+            private def extract_user_id_from_token
+                decoded_token = JwtToken.decode(request.headers['Authorization'].split(' ').last)
+                decoded_token[:user_id]
             end
         end
     end

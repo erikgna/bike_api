@@ -5,9 +5,11 @@ one:
   card_number: MyString
   expiration_date: MyString
   ccv: MyString
+  user: one
 
 two:
   holder_name: MyString
   card_number: MyString
   expiration_date: MyString
   ccv: MyString
+  user: two

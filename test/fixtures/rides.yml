@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  value: MyString
+  creation_date: MyString
+  city: MyString
+  start_date: MyString
+  end_date: MyString
+  start_location: MyString
+  end_location: MyString
+  path: 
+  user: one
+  payments: one
+
+two:
+  value: MyString
+  creation_date: MyString
+  city: MyString
+  start_date: MyString
+  end_date: MyString
+  start_location: MyString
+  end_location: MyString
+  path: 
+  user: two
+  payments: two

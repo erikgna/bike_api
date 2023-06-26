@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
     include JwtToken
+    include RideUtils
 
     before_action :authorize_request
 
