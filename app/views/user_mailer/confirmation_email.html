@@ -1,0 +1,7 @@
+<h1>Olá <%= user.nome %>,</h1>
+<p>
+  Obrigado por se cadastrar em nosso aplicativo de aluguel de bicicletas
+  elétricas!
+</p>
+<p>Por favor, clique no link abaixo para confirmar seu cadastro:</p>
+<a href="<%= confirm_url(user.token) %>">Confirmar cadastro</a>

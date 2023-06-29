@@ -21,11 +21,23 @@ module Api
                     render json: {status: 'ERROR', message: 'Passwords doesnt match'}, status: :unprocessable_entity
                     return
                 end
-                                
+
+                UserMailer.confirmation_email(user).deliver_now
                 if user.save
                     render json: {status: 'SUCCESS', message: 'Saved user', data: user}, status: :ok
                 else
                     render json: {status: 'ERROR', message: 'User not saved', data: user.errors}, status: :unprocessable_entity
+                end
+            end
+
+            def confirm_email
+                user = User.find_by(token: params[:token])
+            
+                if user
+                  user.update(confirmed: true)
+                  render json: { message: 'E-mail confirmado com sucesso!' }, status: :ok
+                else
+                  render json: { error: 'Token de confirmação inválido ou expirado.' }, status: :unprocessable_entity
                 end
             end
 
