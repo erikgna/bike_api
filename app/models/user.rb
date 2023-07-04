@@ -4,9 +4,9 @@ class User < ApplicationRecord
     validates :last_name, presence: true, length: { in: 4..40 }
     validates :cpf, presence: true, length: { is: 11 }, uniqueness: true
     validates :email, presence: true, uniqueness: true
-    validates :password, length: { minimum: 6 }    
-    validates :confirmed, presence: true, default: false
+    validates :password, length: { minimum: 6 }            
     
     has_many :payments
     has_many :rides
+    has_many :addresses
 end

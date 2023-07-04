@@ -1,7 +1,7 @@
 module Api
     module V1
         class UsersController < ApplicationController
-            before_action :authorize_request, except: :create
+            before_action :authorize_request, except: [:create, :confirm_email]
 
             def index
                 users = User.order('created_at DESC');                
@@ -22,6 +22,9 @@ module Api
                     return
                 end
 
+                user.token = SecureRandom.urlsafe_base64 
+
+                # UserMailerWorker.perform_async(user.id)
                 UserMailer.confirmation_email(user).deliver_now
                 if user.save
                     render json: {status: 'SUCCESS', message: 'Saved user', data: user}, status: :ok
@@ -57,7 +60,7 @@ module Api
             end
 
             private def user_params
-                params.permit(:name, :email, :password).except(:password_confirmation)
+                params.permit(:first_name, :last_name, :cpf, :email, :password).except(:password_confirmation)
             end
         end
     end

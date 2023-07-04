@@ -20,4 +20,9 @@ class ApplicationController < ActionController::API
             render json: { errors: e.message }, status: :unauthorized
         end
     end
+
+    def extract_user_id_from_token
+        decoded_token = JwtToken.decode(request.headers['Authorization'].split(' ').last)
+        decoded_token[:user_id]
+    end
 end

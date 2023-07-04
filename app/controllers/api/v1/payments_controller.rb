@@ -49,11 +49,6 @@ module Api
             private def payment_params
                 params.permit(:card_number, :holder_name, :ccv, :expiration_date)
             end
-
-            private def extract_user_id_from_token
-                decoded_token = JwtToken.decode(request.headers['Authorization'].split(' ').last)
-                decoded_token[:user_id]
-            end
         end
     end
 end

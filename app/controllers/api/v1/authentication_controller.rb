@@ -8,7 +8,7 @@ module Api
                 if user && BCrypt::Password.new(user.password) == params[:password]
                     token = JwtToken.encode(user_id: user.id)
                     time = Time.now + 24.hours.to_i
-                    render json: {token: token, exp: time.strftime("%m-%d-%Y %H:%M"), name: user.name}, status: :ok
+                    render json: {token: token, exp: time.strftime("%m-%d-%Y %H:%M"), name: user.first_name}, status: :ok
                 else
                     render json: {error: 'unauthorized'}, status: :unauthorized
                 end

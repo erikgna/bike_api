@@ -73,11 +73,6 @@ module Api
             private def ride_params
                 params.permit(:value, :creation_date, :end_date, :city, :start_date, :start_location, :end_location, :path)
             end
-
-            private def extract_user_id_from_token
-                decoded_token = JwtToken.decode(request.headers['Authorization'].split(' ').last)
-                decoded_token[:user_id]
-            end
         end
     end
 end
