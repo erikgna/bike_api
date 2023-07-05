@@ -4,7 +4,7 @@ Rails.application.routes.draw do
       resources :users, only: [:index, :show, :create, :destroy, :update] do
         get 'payments', to: 'payments#user_payments', on: :collection
         get 'address', to: 'address#user_addresses', on: :collection
-        get 'rides', to: 'rides#user_rides'        
+        get 'rides', to: 'rides#user_rides', on: :collection
 
         collection do
           get 'confirm_email/:token', to: 'users#confirm_email', as: 'confirm_email'          
@@ -16,10 +16,11 @@ Rails.application.routes.draw do
       resources :rides do
         collection do
           post 'start_ride'
+          post 'pay_ride'
         end
         member do           
           post 'end_ride'
-        end
+        end        
       end
     end
   end

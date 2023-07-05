@@ -4,10 +4,12 @@ class CreateRides < ActiveRecord::Migration[7.0]
       t.string :value
       t.datetime :start_date
       t.datetime :end_date
-      t.string :start_location
-      t.string :end_location
-      t.json :path
+      t.json :start_location
+      t.json :end_location
+      t.json :path      
+      t.string :distance
       t.integer :last_four_digits
+      t.boolean :paid
       t.references :user, null: false, foreign_key: true
 
       t.timestamps

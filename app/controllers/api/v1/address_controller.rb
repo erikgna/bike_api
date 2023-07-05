@@ -47,7 +47,7 @@ module Api
             end        
 
             private def address_params
-                params.permit(:street, :number, :city, :state, :cep)
+                params.permit(:street, :number, :city, :state, :cep, :complement)
             end
         end
     end
